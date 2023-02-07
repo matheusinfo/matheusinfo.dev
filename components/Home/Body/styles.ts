@@ -7,7 +7,8 @@ export const Container = styled.div`
   margin-top: 100px;
 
   img {
-    width: 400px;
+    width: 425px;
+    height: 425px;
   }
 
   strong {
@@ -35,7 +36,7 @@ export const Container = styled.div`
     font-size: 16px;
     font-weight: 600;
     transition: all 0.5s;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
     z-index: 1;
 
     a {

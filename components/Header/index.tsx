@@ -14,9 +14,6 @@ export const Header: React.FC = () => {
       <Link href="/about" passHref>
         <HyperLink active={asPath === "/about"}>Sobre mim</HyperLink>
       </Link>
-      <Link href="/contact" passHref>
-        <HyperLink active={asPath === "/contact"}>Contato</HyperLink>
-      </Link>
     </Container>
   );
 };

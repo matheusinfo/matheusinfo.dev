@@ -9,32 +9,14 @@ export const Footer: React.FC = () => (
     <div>
       <Logo />
       <List title="Minhas redes">
-        <Hyperlink
-          name="LinkedIn"
-          path="https://www.linkedin.com/in/mapx/"
-        />
-        <Hyperlink
-          name="GitHub"
-          path="https://github.com/matheusinfo"
-        />
-        <Hyperlink
-          name="LeetCode"
-          path="https://leetcode.com/MaPx/"
-        />
+        <Hyperlink name="LinkedIn" path="https://www.linkedin.com/in/mapx/" />
+        <Hyperlink name="GitHub" path="https://github.com/matheusinfo" />
+        <Hyperlink name="LeetCode" path="https://leetcode.com/MaPx/" />
       </List>
       <List title="Sobre mim">
-        <Hyperlink
-          name="Minha experiência"
-          path=""
-        />
-        <Hyperlink
-          name="Meus projetos"
-          path=""
-        />
-        <Hyperlink
-          name="Minhas habilidades"
-          path=""
-        />
+        <Hyperlink blank={false} name="Minha experiência" path="/about" />
+        <Hyperlink blank={false} name="Meus projetos" path="/about" />
+        <Hyperlink blank={false} name="Minhas habilidades" path="/about" />
       </List>
       <List title="Contato">
         <Hyperlink

@@ -1,9 +1,8 @@
-import styled from 'styled-components'
-import Link from 'next/link'
+import styled from "styled-components";
 
 type Props = {
-  active: boolean
-}
+  active: boolean;
+};
 
 export const Container = styled.div`
   display: flex;
@@ -13,10 +12,10 @@ export const Container = styled.div`
   height: 70px;
   background: #000;
 
-  @media (max-width: 799px){
+  @media (max-width: 799px) {
     display: none;
   }
-`
+`;
 
 export const HyperLink = styled.a<Props>`
   text-transform: uppercase;
@@ -24,11 +23,11 @@ export const HyperLink = styled.a<Props>`
   color: #fff;
   text-decoration: none;
   transition: all 0.5s;
-  color: ${props => !props.active ? '#fff' : '#f7bb00'};
+  color: ${(props) => (!props.active ? "#fff" : "#f7bb00")};
   padding: 25px 0;
-  border-bottom:  ${props => !props.active ? '0' : '1px solid #f7bb00'};
-  
+  border-bottom: ${(props) => (!props.active ? "0" : "1px solid #f7bb00")};
+
   :hover {
     color: #f7bb00;
   }
-`
+`;
