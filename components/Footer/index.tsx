@@ -13,11 +13,7 @@ export const Footer: React.FC = () => (
         <Hyperlink name="GitHub" path="https://github.com/matheusinfo" />
         <Hyperlink name="LeetCode" path="https://leetcode.com/MaPx/" />
       </List>
-      <List title="Sobre mim">
-        <Hyperlink blank={false} name="Minha experiência" path="/about" />
-        <Hyperlink blank={false} name="Meus projetos" path="/about" />
-        <Hyperlink blank={false} name="Minhas habilidades" path="/about" />
-      </List>
+
       <List title="Contato">
         <Hyperlink
           name="E-mail"
