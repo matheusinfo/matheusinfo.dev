@@ -7,6 +7,12 @@ const nextConfig = {
     path: "",
   },
   assetPrefix: "./",
+  exportPathMap: async function () {
+    return {
+      "/": { page: "/" },
+      "/about": { page: "/about" },
+    };
+  },
 };
 
 export default nextConfig;
