@@ -1,12 +1,11 @@
 import React from "react";
 import Image from "next/image";
 import { Container } from "./styles";
-import Logo from "../../../public/logo.svg";
 
 export const Body: React.FC = () => (
   <Container>
     <Image
-      src="https://svgshare.com/i/q85.svg"
+      src="https://user-images.githubusercontent.com/48860569/217674510-ec97555d-315a-413d-8734-d4a8054c42a6.svg"
       alt="Matheus Andrade Logo"
       height={425}
       width={425}

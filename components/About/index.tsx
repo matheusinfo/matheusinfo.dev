@@ -11,7 +11,7 @@ export const About: React.FC = () => (
   <Container>
     <Content>
       <Image
-        src="https://svgshare.com/i/q85.svg"
+        src="https://user-images.githubusercontent.com/48860569/217674510-ec97555d-315a-413d-8734-d4a8054c42a6.svg"
         alt="SalvandoVidasMaringá Logo"
         width={200}
         height={200}
