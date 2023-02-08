@@ -6,12 +6,16 @@ import {
   SkillsCard,
 } from "./styles";
 import Image from "next/image";
-import Logo from "../../public/logo.svg";
 
 export const About: React.FC = () => (
   <Container>
     <Content>
-      <Image src={Logo} alt="SalvandoVidasMaringá Logo" />
+      <Image
+        src="https://svgshare.com/i/q85.svg"
+        alt="SalvandoVidasMaringá Logo"
+        width={200}
+        height={200}
+      />
       <p>
         Sempre fui muito ligado a tecnologia desde criança e quando comecei na
         faculdade em 2018 a ligação apenas ficou mais forte e sem nenhuma dúvida

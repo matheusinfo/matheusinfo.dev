@@ -18,11 +18,6 @@ export const Content = styled.div`
     font-size: 25px;
   }
 
-  img {
-    height: 200px;
-    width: 200px;
-  }
-
   p {
     margin: 15px auto 25px auto;
     max-width: 600px;

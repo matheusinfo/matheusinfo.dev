@@ -6,11 +6,6 @@ export const Container = styled.div`
   align-items: center;
   margin-top: 100px;
 
-  img {
-    width: 425px;
-    height: 425px;
-  }
-
   strong {
     font-size: 30px;
     margin-top: 20px;

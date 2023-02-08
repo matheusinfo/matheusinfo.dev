@@ -1,9 +1,0 @@
-<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 385 296" width="385" height="296">
-	<title>New Project</title>
-	<style>
-		.s0 { fill: #ffffff } 
-		.s1 { fill: #f7bb00 } 
-	</style>
-	<path id="M" class="s0" aria-label="M"  d="m155.3 23.5h88.4l19.5 181.5h-64.7l-4-129.5-25 129.5h-65.5l-25.5-128.5-3.8 128.5h-64.7l19.5-181.5h85l21.7 118.3z"/>
-	<path id="A" class="s1" aria-label="A"  d="m368.5 277h-64.8q-4.7-14.3-12.7-35.8h-79.8l-12.5 35.8h-62.7l70-181.5h92zm-143-74.8h51.3q-9.6-26.2-19.6-52.5l-5.9-16.2q-8.8 22.7-25.8 68.8z"/>
-</svg>
