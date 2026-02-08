@@ -31,6 +31,11 @@ export const Header: React.FC = () => {
             <HyperLink active={asPath === "/about"}>Sobre mim</HyperLink>
           </Link>
         </motion.div>
+        <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }}>
+          <Link href="/blog" passHref>
+            <HyperLink active={asPath.startsWith("/blog")}>Blog</HyperLink>
+          </Link>
+        </motion.div>
       </NavWrapper>
     </Container>
   );

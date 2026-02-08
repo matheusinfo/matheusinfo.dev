@@ -5,6 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { FaWindowClose } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
 import { ImQuestion } from "react-icons/im";
+import { FaBlog } from "react-icons/fa";
 import { ListItens } from "./ListItens";
 import { Container, Bar, BarItens, MenuButton, Overlay } from "./styles";
 
@@ -65,6 +66,22 @@ export const Sidebar: React.FC = () => {
               onClick={handleClick}
             >
               <ImQuestion color="#f7bb00" />
+            </ListItens>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : 20 }}
+            transition={{ delay: 0.3 }}
+          >
+            <ListItens
+              title="Blog"
+              path="/blog"
+              name="Artigos"
+              active={asPath.startsWith("/blog")}
+              onClick={handleClick}
+            >
+              <FaBlog color="#f7bb00" />
             </ListItens>
           </motion.div>
         </BarItens>
