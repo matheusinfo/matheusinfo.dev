@@ -1,6 +1,7 @@
 import React, { ReactNode } from "react";
-import { Container, HyperLink, Button } from "./styles";
+import { motion } from "framer-motion";
 import Link from "next/link";
+import { Container, HyperLink, Button } from "./styles";
 
 type ListItensProps = {
   title: string;
@@ -21,7 +22,13 @@ export const ListItens: React.FC<ListItensProps> = ({
 }) => (
   <Container>
     <strong>{title}</strong>
-    <Button active={active} onClick={onClick}>
+    <Button
+      as={motion.button}
+      active={active}
+      onClick={onClick}
+      whileHover={{ x: 5 }}
+      whileTap={{ scale: 0.95 }}
+    >
       {children}
       <Link href={path} passHref>
         <HyperLink active={active}>{name}</HyperLink>

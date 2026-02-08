@@ -1,18 +1,28 @@
 import styled from "styled-components";
 
-export const Text = styled.a`
+export const LinkWrapper = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 10px;
   text-decoration: none;
-  color: #9c9cad;
+  color: #a0a0a0;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: 0.2px;
-  margin: 3px 0;
+  padding: 8px 0;
+  transition: all 0.3s ease;
 
-  :hover {
-    text-decoration: underline;
+  .icon {
+    display: flex;
+    align-items: center;
+    color: #f7bb00;
   }
 
-  @media (max-width: 500px) {
-    font-size: 16px;
+  &:hover {
+    color: #f7bb00;
+  }
+
+  @media (max-width: 600px) {
+    justify-content: center;
   }
 `;

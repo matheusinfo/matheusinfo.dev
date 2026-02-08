@@ -2,25 +2,29 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   display: flex;
-  margin-top: 15px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
 
-  strong {
-    font-size: 30px;
-
-    span {
-      color: #3a3a61;
-      font-size: 40px;
-      margin: 0 10px;
-    }
+  p {
+    color: #a0a0a0;
+    font-size: 14px;
+    margin: 0;
   }
 
-  @media (max-width: 500px) {
-    strong {
-      font-size: 25px;
+  @media (max-width: 600px) {
+    align-items: center;
+  }
+`;
 
-      span {
-        font-size: 35px;
-      }
-    }
+export const BrandName = styled.h3`
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+
+  span {
+    color: #f7bb00;
+    margin-left: 5px;
   }
 `;

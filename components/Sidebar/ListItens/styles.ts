@@ -7,39 +7,52 @@ type ActiveProps = {
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 50px;
-  overflow: hidden;
+  margin-bottom: 35px;
 
   strong {
     text-transform: uppercase;
-    font-size: 16x;
-    letter-spacing: 0.4px;
+    font-size: 12px;
+    letter-spacing: 2px;
     color: #575761;
-    margin-bottom: 15px;
+    margin-bottom: 12px;
   }
 `;
 
 export const HyperLink = styled.a<ActiveProps>`
-  color: ${(props) => (!props.active ? "#fff" : "#f7bb00")};
+  color: ${(props) => (props.active ? "#f7bb00" : "#fff")};
   text-decoration: none;
-  font-size: 14px;
-  margin-left: 10px;
+  font-size: 15px;
+  margin-left: 12px;
   font-weight: 600;
-  width: 100px;
+  transition: color 0.3s ease;
 `;
 
 export const Button = styled.button<ActiveProps>`
   display: flex;
-  background: transparent;
-  border: 0;
-  color: ${(props) => (!props.active ? "#fff" : "#f7bb00")};
-  transition: all 0.3s;
+  align-items: center;
+  background: ${(props) => 
+    props.active 
+      ? "rgba(247, 187, 0, 0.1)" 
+      : "transparent"};
+  border: 1px solid ${(props) => 
+    props.active 
+      ? "rgba(247, 187, 0, 0.3)" 
+      : "transparent"};
+  border-radius: 10px;
+  padding: 12px 15px;
+  color: ${(props) => (props.active ? "#f7bb00" : "#fff")};
+  transition: all 0.3s ease;
 
   svg {
-    font-size: 18px;
+    font-size: 20px;
   }
 
-  :hover {
+  &:hover {
+    background: rgba(247, 187, 0, 0.1);
     color: #f7bb00;
+    
+    ${HyperLink} {
+      color: #f7bb00;
+    }
   }
 `;

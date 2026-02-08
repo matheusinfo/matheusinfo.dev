@@ -1,111 +1,183 @@
+import React from "react";
+import { motion } from "framer-motion";
+import Image from "next/image";
 import {
   Container,
   Content,
+  ProfileSection,
+  SectionTitle,
   ExperienceCard,
+  ExperienceTimeline,
   ProjectsCard,
-  SkillsCard,
+  SkillsGrid,
+  SkillBadge,
+  HandleText,
 } from "./styles";
-import Image from "next/image";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, x: -30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.6, ease: "easeOut" },
+  },
+};
+
+const skills = [
+  { name: "React", category: "frontend" },
+  { name: "Next.js", category: "frontend" },
+  { name: "TypeScript", category: "frontend" },
+  { name: "Node.js", category: "backend" },
+  { name: "NestJS", category: "backend" },
+  { name: "Laravel", category: "backend" },
+  { name: ".NET", category: "backend" },
+  { name: "React Native", category: "mobile" },
+  { name: "Flutter", category: "mobile" },
+  { name: "PostgreSQL", category: "database" },
+  { name: "MySQL", category: "database" },
+  { name: "Firebase", category: "database" },
+  { name: "Docker", category: "devops" },
+  { name: "CI/CD", category: "devops" },
+  { name: "Kafka", category: "devops" },
+  { name: "Jest", category: "testing" },
+  { name: "Cypress", category: "testing" },
+  { name: "Git", category: "tools" },
+];
+
+const experiences = [
+  {
+    company: "GazinTech",
+    role: "Desenvolvedor FullStack",
+    period: "06/2021 - Atual",
+    description:
+      "Atuação em diversos times internos da empresa, como Pintando7, Atacado, Logística e, atualmente, GazinBank, contribuindo para o desenvolvimento, evolução e sustentação de sistemas críticos ao negócio. Participação ativa em projetos estratégicos, incluindo soluções de meios de pagamento como PIX, PIX Automático e Cartão de Crédito, com foco em alta disponibilidade, segurança, escalabilidade e qualidade das entregas.",
+  },
+  {
+    company: "Saura Consultoria",
+    role: "Técnico T.I",
+    period: "04/2019 - 05/2021",
+    description:
+      "Durante a maior parte do período, atuei com manutenção de sistemas e suporte a usuários. Nos últimos meses, passei a ter contato direto com atividades de desenvolvimento, contribuindo para a evolução de soluções internas e aprimoramento de funcionalidades.",
+  },
+];
 
 export const About: React.FC = () => (
   <Container>
-    <Content>
-      <Image
-        src="https://user-images.githubusercontent.com/48860569/217674510-ec97555d-315a-413d-8734-d4a8054c42a6.svg"
-        alt="SalvandoVidasMaringá Logo"
-        width={200}
-        height={200}
-      />
-      <p>
-        Sempre fui muito ligado a tecnologia desde criança e quando comecei na
-        faculdade em 2018 a ligação apenas ficou mais forte e sem nenhuma dúvida
-        de que é isso que eu gostaria de fazer. Busco aprender e me aperfeiçoar
-        um pouco mais a cada dia. Durante meus 2+ anos de experiência de
-        mercado, participei de diversos times e tive contato com diversas áreas
-        de negócio dos quais me fizeram evoluir cada dia mais.
-      </p>
-
-      <h1>Minha experiência</h1>
-
-      <ExperienceCard>
-        <h1>GazinTech</h1>
-        <h2>Desenvolvedor FullStack</h2>
-        <span>06/2021 - ATUAL</span>
-
+    <Content
+      as={motion.div}
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <ProfileSection as={motion.div} variants={itemVariants}>
+        <motion.div
+          whileHover={{ scale: 1.05, rotate: 5 }}
+          transition={{ duration: 0.3 }}
+        >
+          <Image
+            src="https://user-images.githubusercontent.com/48860569/217674510-ec97555d-315a-413d-8734-d4a8054c42a6.svg"
+            alt="Matheus Andrade"
+            width={180}
+            height={180}
+          />
+        </motion.div>
         <p>
-          Participei de diversos times internos, na criação de sites
-          promocionais (Pintando7 e Outubro10), e- commerce b2b, time
-          responsável pela logistica e meu time atual que está realizando a
-          criação do GazinBank, o banco interno da gazin.
+          Sempre fui muito ligado à tecnologia desde criança. Quando comecei na
+          faculdade em 2018, essa paixão só cresceu. Busco aprender e me
+          aperfeiçoar um pouco mais a cada dia. Durante meus 5 anos de
+          experiência, participei de diversos times e tive contato com diversas
+          áreas de negócio.
         </p>
-      </ExperienceCard>
+      </ProfileSection>
 
-      <ExperienceCard>
-        <h1>Saura Consultoria</h1>
-        <h2>Técnico T.I</h2>
-        <span>04/2019 - 05/2021</span>
+      <SectionTitle as={motion.h2} variants={itemVariants}>
+        Experiência Profissional
+      </SectionTitle>
 
+      <ExperienceTimeline>
+        {experiences.map((exp, index) => (
+          <ExperienceCard
+            key={exp.company}
+            as={motion.div}
+            variants={cardVariants}
+            whileHover={{ scale: 1.02, x: 10 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div className="timeline-dot" />
+            <h3>{exp.company}</h3>
+            <h4>{exp.role}</h4>
+            <span className="period">{exp.period}</span>
+            <p>{exp.description}</p>
+          </ExperienceCard>
+        ))}
+      </ExperienceTimeline>
+
+      <SectionTitle as={motion.h2} variants={itemVariants}>
+        Habilidades Técnicas
+      </SectionTitle>
+
+      <SkillsGrid as={motion.div} variants={itemVariants}>
+        {skills.map((skill, index) => (
+          <SkillBadge
+            key={skill.name}
+            as={motion.div}
+            category={skill.category}
+            initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.5 + index * 0.05, duration: 0.3 }}
+            whileHover={{ scale: 1.1, y: -5 }}
+          >
+            {skill.name}
+          </SkillBadge>
+        ))}
+      </SkillsGrid>
+
+      <SectionTitle as={motion.h2} variants={itemVariants}>
+        Projetos
+      </SectionTitle>
+
+      <ProjectsCard as={motion.div} variants={itemVariants}>
         <p>
-          Durante a maior parte do tempo, dei manutenção e suporte a usuários.
-          Nesse período tive a oportunidade e começar a atuar junto ao time de
-          desenvolvimento na manutenção do sistema interno da empresa (ERP).
-        </p>
-      </ExperienceCard>
-
-      <h1>Minhas habilidades</h1>
-
-      <SkillsCard>
-        <div>
-          <span>•</span> <small>React, Next.js e Remix </small>
-        </div>
-
-        <div>
-          <span>•</span>{" "}
-          <small>NestJS, Laravel, Node.js, .NET core e .NET framework </small>
-        </div>
-
-        <div>
-          <span>•</span> <small>ReactNative e Flutter </small>
-        </div>
-
-        <div>
-          <span>•</span>{" "}
-          <small>Postgres, MySQL, Elasticsearch e Firebase </small>
-        </div>
-
-        <div>
-          <span>•</span> <small>Jest, Mocktail e Cypress </small>
-        </div>
-
-        <div>
-          <span>•</span>
-          <small>
-            {" "}
-            Kafka, Websocket, Docket, Git, Microserviços, CI/CD, Clean
-            Architecture, testes e2e, testes unitários...
-          </small>
-        </div>
-      </SkillsCard>
-
-      <h1>Meus projetos</h1>
-
-      <ProjectsCard>
-        <p>
-          Todos meus projetos realizados para empresas a qual trabalhei são
-          privados e respeita a política de privacidade da empresa. Entretanto,
-          possuo projetos públicos que podem ser acessados no meu{" "}
-          <a
-            target="_blank"
+          Meus projetos profissionais são privados e respeitam a política de
+          privacidade das empresas. Porém, tenho projetos públicos no meu{" "}
+          <motion.a
             href="https://github.com/matheusinfo"
+            target="_blank"
             rel="noreferrer"
+            whileHover={{ scale: 1.05 }}
           >
             GitHub
-          </a>
+          </motion.a>
           .
         </p>
       </ProjectsCard>
 
-      <span>@matheusinfo</span>
+      <HandleText
+        as={motion.span}
+        variants={itemVariants}
+        whileHover={{ scale: 1.1 }}
+      >
+        @matheusinfo
+      </HandleText>
     </Content>
   </Container>
 );

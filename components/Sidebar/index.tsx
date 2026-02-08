@@ -1,52 +1,87 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { motion, AnimatePresence } from "framer-motion";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { FaWindowClose } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
 import { ImQuestion } from "react-icons/im";
 import { ListItens } from "./ListItens";
-import { Container, Bar, BarItens } from "./styles";
+import { Container, Bar, BarItens, MenuButton, Overlay } from "./styles";
 
 export const Sidebar: React.FC = () => {
   const { asPath } = useRouter();
-  const [small, setSmall] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
-    setSmall((current) => !current);
+    setIsOpen((current) => !current);
   };
 
   return (
-    <Container small={small}>
-      <Bar small={small}>
-        <BarItens small={small}>
-          <ListItens
-            title="Geral"
-            path="/"
-            name="Pagina inicial"
-            active={asPath === "/"}
+    <Container>
+      <AnimatePresence>
+        {isOpen && (
+          <Overlay
+            as={motion.div}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             onClick={handleClick}
+          />
+        )}
+      </AnimatePresence>
+      
+      <Bar
+        as={motion.div}
+        animate={{ x: isOpen ? 0 : 250 }}
+        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+      >
+        <BarItens>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : 20 }}
+            transition={{ delay: 0.1 }}
           >
-            <IoHome color="#f7bb00" />
-          </ListItens>
+            <ListItens
+              title="Geral"
+              path="/"
+              name="Página inicial"
+              active={asPath === "/"}
+              onClick={handleClick}
+            >
+              <IoHome color="#f7bb00" />
+            </ListItens>
+          </motion.div>
 
-          <ListItens
-            title="Sobre mim"
-            path="/about"
-            name="Quem sou eu?"
-            active={asPath === "/about"}
-            onClick={handleClick}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: isOpen ? 1 : 0, x: isOpen ? 0 : 20 }}
+            transition={{ delay: 0.2 }}
           >
-            <ImQuestion color="#f7bb00" />
-          </ListItens>
+            <ListItens
+              title="Sobre mim"
+              path="/about"
+              name="Quem sou eu?"
+              active={asPath === "/about"}
+              onClick={handleClick}
+            >
+              <ImQuestion color="#f7bb00" />
+            </ListItens>
+          </motion.div>
         </BarItens>
       </Bar>
-      <button onClick={handleClick}>
-        {small ? (
-          <GiHamburgerMenu fontSize="30px" color="#f7bb00" />
+      
+      <MenuButton
+        as={motion.button}
+        onClick={handleClick}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+      >
+        {isOpen ? (
+          <FaWindowClose fontSize="28px" color="#f7bb00" />
         ) : (
-          <FaWindowClose fontSize="30px" color="#f7bb00" />
+          <GiHamburgerMenu fontSize="28px" color="#f7bb00" />
         )}
-      </button>
+      </MenuButton>
     </Container>
   );
 };
