@@ -1,11 +1,13 @@
+"use client";
+
 import React from "react";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Container, HyperLink, NavWrapper, Logo } from "./styles";
+import { Container, NavWrapper, Logo, NavLink } from "./styles";
 
 export const Header: React.FC = () => {
-  const { asPath } = useRouter();
+  const pathname = usePathname();
 
   return (
     <Container
@@ -15,26 +17,18 @@ export const Header: React.FC = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <Logo as={motion.div} whileHover={{ scale: 1.05 }}>
-        <Link href="/" passHref>
-          <a>MA</a>
-        </Link>
+        <Link href="/">MA</Link>
       </Logo>
       
       <NavWrapper>
         <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }}>
-          <Link href="/" passHref>
-            <HyperLink active={asPath === "/"}>Início</HyperLink>
-          </Link>
+          <NavLink href="/" $active={pathname === "/"}>Início</NavLink>
         </motion.div>
         <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }}>
-          <Link href="/about" passHref>
-            <HyperLink active={asPath === "/about"}>Sobre mim</HyperLink>
-          </Link>
+          <NavLink href="/about" $active={pathname === "/about"}>Sobre mim</NavLink>
         </motion.div>
         <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.95 }}>
-          <Link href="/blog" passHref>
-            <HyperLink active={asPath.startsWith("/blog")}>Blog</HyperLink>
-          </Link>
+          <NavLink href="/blog" $active={pathname?.startsWith("/blog") ?? false}>Blog</NavLink>
         </motion.div>
       </NavWrapper>
     </Container>

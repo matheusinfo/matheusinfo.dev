@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -68,13 +70,14 @@ export const Blog: React.FC = () => {
 
         <PostList>
           {posts.map((post) => (
-            <Link key={post.slug} href={`/blog/${post.slug}`} passHref>
-              <PostCard
-                as={motion.a}
-                variants={cardVariants}
-                whileHover={{ scale: 1.02, y: -5 }}
-                whileTap={{ scale: 0.98 }}
-              >
+            <PostCard
+              key={post.slug}
+              as={motion.div}
+              variants={cardVariants}
+              whileHover={{ scale: 1.02, y: -5 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Link href={`/blog/${post.slug}`}>
                 <h2>{post.title}</h2>
                 <p>{post.resume}</p>
                 <PostMeta>
@@ -82,8 +85,8 @@ export const Blog: React.FC = () => {
                   <span>•</span>
                   <span>{post.readTime} de leitura</span>
                 </PostMeta>
-              </PostCard>
-            </Link>
+              </Link>
+            </PostCard>
           ))}
         </PostList>
       </Content>

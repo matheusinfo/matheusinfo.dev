@@ -11,5 +11,5 @@ export default function HomePage() {
       <Body />
       <Footer />
     </div>
-  )
+  );
 }

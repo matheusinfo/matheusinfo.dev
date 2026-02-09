@@ -1,17 +1,17 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
-  images: {
-    loader: "akamai",
-    path: "",
+const nextConfig = {
+  reactStrictMode: true,
+  compiler: {
+    styledComponents: true,
   },
-  assetPrefix: "./",
-  exportPathMap: async function (
-    defaultPathMap,
-    { dev, dir, outDir, distDir, buildId }
-  ) {
-    return {
-      "/": { page: "/" },
-      "/about": { page: "/about" },
-    };
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'user-images.githubusercontent.com',
+      },
+    ],
   },
 };
+
+module.exports = nextConfig;

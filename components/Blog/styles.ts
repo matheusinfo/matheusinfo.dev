@@ -33,19 +33,23 @@ export const PostList = styled.div`
   width: 100%;
 `;
 
-export const PostCard = styled.a`
+export const PostCard = styled.div`
   display: block;
   background: linear-gradient(
     135deg,
     rgba(59, 59, 59, 0.6) 0%,
     rgba(40, 40, 40, 0.8) 100%
   );
-  padding: 30px;
   border-radius: 16px;
   border: 1px solid rgba(247, 187, 0, 0.15);
-  text-decoration: none;
   cursor: pointer;
   transition: all 0.3s ease;
+
+  a {
+    display: block;
+    padding: 30px;
+    text-decoration: none;
+  }
 
   h2 {
     color: #fff;

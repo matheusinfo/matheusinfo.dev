@@ -12,18 +12,21 @@ export const Content = styled.article`
   margin: 0 auto;
 `;
 
-export const BackLink = styled.a`
+export const BackLink = styled.div`
   display: inline-flex;
   align-items: center;
-  color: #f7bb00;
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 500;
   margin-bottom: 40px;
-  transition: all 0.3s ease;
+  
+  a {
+    color: #f7bb00;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    transition: all 0.3s ease;
 
-  &:hover {
-    color: #ffd54f;
+    &:hover {
+      color: #ffd54f;
+    }
   }
 `;
 

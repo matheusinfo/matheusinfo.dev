@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import Link from "next/link";
 
 type Props = {
-  active: boolean;
+  $active: boolean;
 };
 
 export const Container = styled.div`
@@ -41,7 +42,7 @@ export const NavWrapper = styled.nav`
   gap: 40px;
 `;
 
-export const HyperLink = styled.a<Props>`
+export const NavLink = styled(Link)<Props>`
   position: relative;
   text-transform: uppercase;
   font-weight: 600;
@@ -49,7 +50,7 @@ export const HyperLink = styled.a<Props>`
   letter-spacing: 1px;
   text-decoration: none;
   transition: all 0.3s ease;
-  color: ${(props) => (props.active ? "#f7bb00" : "#fff")};
+  color: ${(props) => (props.$active ? "#f7bb00" : "#fff")};
   padding: 8px 0;
 
   &::after {
@@ -57,7 +58,7 @@ export const HyperLink = styled.a<Props>`
     position: absolute;
     bottom: 0;
     left: 0;
-    width: ${(props) => (props.active ? "100%" : "0")};
+    width: ${(props) => (props.$active ? "100%" : "0")};
     height: 2px;
     background: linear-gradient(90deg, #f7bb00, #ffd54f);
     transition: width 0.3s ease;

@@ -11,7 +11,7 @@ export default function PostPage({ post }: PostPageProps) {
   return (
     <div>
       <Head>
-        <title>{post.title} | Blog - Matheus Andrade</title>
+        <title>{`${post.title} | Blog - Matheus Andrade`}</title>
         <meta name="description" content={post.resume} />
       </Head>
       <BlogPost post={post} />

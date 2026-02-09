@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -43,15 +45,13 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
         initial="hidden"
         animate="visible"
       >
-        <Link href="/blog" passHref>
-          <BackLink
-            as={motion.a}
-            variants={itemVariants}
-            whileHover={{ x: -5 }}
-          >
-            ← Voltar para o Blog
-          </BackLink>
-        </Link>
+        <BackLink
+          as={motion.div}
+          variants={itemVariants}
+          whileHover={{ x: -5 }}
+        >
+          <Link href="/blog">← Voltar para o Blog</Link>
+        </BackLink>
 
         <PostHeader as={motion.div} variants={itemVariants}>
           <h1>{post.title}</h1>
@@ -73,12 +73,10 @@ export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
 };
 
 function formatContent(content: string): string {
-  // Simple markdown-like parsing
   return content
     .trim()
     .split("\n")
     .map((line) => {
-      // Headers
       if (line.startsWith("# ")) {
         return `<h1>${line.slice(2)}</h1>`;
       }
@@ -88,23 +86,17 @@ function formatContent(content: string): string {
       if (line.startsWith("### ")) {
         return `<h3>${line.slice(4)}</h3>`;
       }
-      // Code blocks
       if (line.startsWith("```")) {
         return line === "```" ? "</pre></code>" : "<code><pre>";
       }
-      // Lists
       if (line.startsWith("- ")) {
         return `<li>${line.slice(2)}</li>`;
       }
-      // Bold
       line = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-      // Inline code
       line = line.replace(/`([^`]+)`/g, "<code class='inline'>$1</code>");
-      // Empty lines
       if (line.trim() === "") {
         return "<br/>";
       }
-      // Regular paragraphs
       if (!line.startsWith("<")) {
         return `<p>${line}</p>`;
       }

@@ -1,16 +1,17 @@
+"use client";
+
 import React, { useState } from "react";
-import { useRouter } from "next/router";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { FaWindowClose } from "react-icons/fa";
+import { FaWindowClose, FaBlog } from "react-icons/fa";
 import { IoHome } from "react-icons/io5";
 import { ImQuestion } from "react-icons/im";
-import { FaBlog } from "react-icons/fa";
 import { ListItens } from "./ListItens";
 import { Container, Bar, BarItens, MenuButton, Overlay } from "./styles";
 
 export const Sidebar: React.FC = () => {
-  const { asPath } = useRouter();
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -46,7 +47,7 @@ export const Sidebar: React.FC = () => {
               title="Geral"
               path="/"
               name="Página inicial"
-              active={asPath === "/"}
+              active={pathname === "/"}
               onClick={handleClick}
             >
               <IoHome color="#f7bb00" />
@@ -62,7 +63,7 @@ export const Sidebar: React.FC = () => {
               title="Sobre mim"
               path="/about"
               name="Quem sou eu?"
-              active={asPath === "/about"}
+              active={pathname === "/about"}
               onClick={handleClick}
             >
               <ImQuestion color="#f7bb00" />
@@ -78,7 +79,7 @@ export const Sidebar: React.FC = () => {
               title="Blog"
               path="/blog"
               name="Artigos"
-              active={asPath.startsWith("/blog")}
+              active={pathname?.startsWith("/blog") ?? false}
               onClick={handleClick}
             >
               <FaBlog color="#f7bb00" />
