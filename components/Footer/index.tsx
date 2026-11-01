@@ -64,8 +64,13 @@ export const Footer: React.FC = () => (
             icon={<FaWhatsapp />}
           />
           <Hyperlink
-            name="Currículo"
-            path="https://drive.google.com/file/d/14eJRbNcwgFzZxQYvoESPn-Kv3acDXGFm/view"
+            name="Currículo (PT)"
+            path="/curriculum/curriculum.pdf"
+            icon={<FaFileDownload />}
+          />
+          <Hyperlink
+            name="Resume (EN)"
+            path="/curriculum/curriculum_en.pdf"
             icon={<FaFileDownload />}
           />
         </List>

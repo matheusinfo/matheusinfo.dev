@@ -108,3 +108,42 @@ export const CTAButton = styled.a`
     transform: translateY(-2px);
   }
 `;
+
+export const ResumeWrapper = styled.div`
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const ResumeMenu = styled.div`
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  background: #1a1a1f;
+  border: 1px solid rgba(247, 187, 0, 0.3);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+`;
+
+export const ResumeOption = styled.a`
+  color: #e0e0e0;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(247, 187, 0, 0.1);
+    color: #f7bb00;
+  }
+`;

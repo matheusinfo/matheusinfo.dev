@@ -1,9 +1,21 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { Container, HeroSection, ProfileImage, Title, Subtitle, CTAButton, TechStack, TechBadge } from "./styles";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Container,
+  HeroSection,
+  ProfileImage,
+  Title,
+  Subtitle,
+  CTAButton,
+  TechStack,
+  TechBadge,
+  ResumeWrapper,
+  ResumeMenu,
+  ResumeOption,
+} from "./styles";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -43,6 +55,80 @@ const imageVariants = {
 const technologies = [
   "React", "Next.js", "Node.js", "TypeScript", "Flutter", "NestJS", "PostgreSQL", "Docker"
 ];
+
+const resumes = [
+  { label: "Português", path: "/curriculum/curriculum.pdf", filename: "Matheus Andrade - Currículo.pdf" },
+  { label: "English", path: "/curriculum/curriculum_en.pdf", filename: "Matheus Andrade - Resume.pdf" },
+];
+
+const ResumeDownload: React.FC = () => {
+  const [open, setOpen] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [open]);
+
+  return (
+    <ResumeWrapper ref={wrapperRef} as={motion.div} variants={itemVariants}>
+      <CTAButton
+        as={motion.button}
+        type="button"
+        aria-haspopup="menu"
+        aria-expanded={open}
+        onClick={() => setOpen((prev) => !prev)}
+        whileHover={{
+          scale: 1.05,
+          boxShadow: "0 10px 30px rgba(247, 187, 0, 0.3)",
+        }}
+        whileTap={{ scale: 0.95 }}
+      >
+        Baixar Currículo
+      </CTAButton>
+
+      <AnimatePresence>
+        {open && (
+          <ResumeMenu
+            as={motion.div}
+            role="menu"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+          >
+            {resumes.map((resume) => (
+              <ResumeOption
+                key={resume.path}
+                role="menuitem"
+                href={resume.path}
+                download={resume.filename}
+                onClick={() => setOpen(false)}
+              >
+                {resume.label}
+              </ResumeOption>
+            ))}
+          </ResumeMenu>
+        )}
+      </AnimatePresence>
+    </ResumeWrapper>
+  );
+};
 
 export const Body: React.FC = () => (
   <Container>
@@ -85,20 +171,7 @@ export const Body: React.FC = () => (
         ))}
       </TechStack>
 
-      <CTAButton
-        as={motion.a}
-        href="https://drive.google.com/file/d/1u8tgi3JCJcbgbdwkTrP0M-ks4K9aWNtN/view?usp=sharing"
-        target="_blank"
-        rel="noreferrer"
-        variants={itemVariants}
-        whileHover={{
-          scale: 1.05,
-          boxShadow: "0 10px 30px rgba(247, 187, 0, 0.3)",
-        }}
-        whileTap={{ scale: 0.95 }}
-      >
-        Baixar Currículo
-      </CTAButton>
+      <ResumeDownload />
     </HeroSection>
   </Container>
 );
