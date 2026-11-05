@@ -1,159 +1,83 @@
 import styled from "styled-components";
+import Link from "next/link";
+import { media } from "../../styles/theme";
 
-export const Container = styled.div`
-  position: relative;
-  z-index: 1;
-  padding: 40px 20px 100px;
-  min-height: calc(100vh - 80px);
+export const Page = styled.div`
+  padding: 32px 0 80px;
+
+  ${media.md} {
+    padding: 64px 0 120px;
+  }
 `;
 
-export const Content = styled.article`
-  max-width: 750px;
+export const Article = styled.article`
+  max-width: 72ch;
   margin: 0 auto;
+  min-width: 0;
 `;
 
-export const BackLink = styled.div`
+export const BackLink = styled(Link)`
   display: inline-flex;
   align-items: center;
-  margin-bottom: 40px;
-  
-  a {
-    color: #f7bb00;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-    transition: all 0.3s ease;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.muted};
+  transition: color ${({ theme }) => theme.transition};
 
-    &:hover {
-      color: #ffd54f;
-    }
+  svg {
+    flex-shrink: 0;
+    transition: transform ${({ theme }) => theme.transition};
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: ${({ theme }) => theme.colors.accent};
+  }
+  &:hover svg {
+    transform: translateX(-3px);
   }
 `;
 
-export const PostHeader = styled.div`
-  margin-bottom: 50px;
-  text-align: center;
+export const PostHeader = styled.header`
+  margin: 24px 0 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
-  h1 {
-    font-size: clamp(28px, 5vw, 42px);
-    line-height: 1.3;
-    margin: 0 0 20px 0;
-    background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  ${media.md} {
+    margin: 32px 0 48px;
   }
 `;
 
-export const PostMeta = styled.div`
+export const Title = styled.h1`
+  font-size: clamp(1.85rem, 6vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: ${({ theme }) => theme.colors.text};
+  margin-bottom: 16px;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+`;
+
+export const Meta = styled.p`
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
-  gap: 12px;
-  font-size: 15px;
-  color: #666;
-
-  span:nth-child(2) {
-    color: #f7bb00;
-  }
+  gap: 4px 8px;
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.subtle};
 `;
 
-export const PostContent = styled.div`
-  color: #d0d0d0;
-  font-size: 17px;
-  line-height: 1.8;
+export const LangNote = styled.p`
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.subtle};
+`;
 
-  h1 {
-    font-size: 32px;
-    color: #fff;
-    margin: 40px 0 20px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid rgba(247, 187, 0, 0.3);
-  }
-
-  h2 {
-    font-size: 26px;
-    color: #f7bb00;
-    margin: 35px 0 15px;
-  }
-
-  h3 {
-    font-size: 20px;
-    color: #fff;
-    margin: 25px 0 10px;
-  }
-
-  p {
-    margin: 15px 0;
-  }
-
-  li {
-    margin: 8px 0;
-    padding-left: 20px;
-    position: relative;
-
-    &::before {
-      content: "•";
-      color: #f7bb00;
-      position: absolute;
-      left: 0;
-    }
-  }
-
-  code {
-    &.inline {
-      background: rgba(247, 187, 0, 0.15);
-      color: #ffd54f;
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-family: "Fira Code", "Consolas", monospace;
-      font-size: 14px;
-    }
-
-    pre {
-      background: #1a1a1f;
-      border: 1px solid rgba(247, 187, 0, 0.2);
-      border-radius: 12px;
-      padding: 20px;
-      overflow-x: auto;
-      font-family: "Fira Code", "Consolas", monospace;
-      font-size: 14px;
-      line-height: 1.6;
-      margin: 20px 0;
-      color: #e0e0e0;
-
-      &::-webkit-scrollbar {
-        height: 6px;
-      }
-
-      &::-webkit-scrollbar-track {
-        background: transparent;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background: #f7bb00;
-        border-radius: 3px;
-      }
-    }
-  }
-
-  strong {
-    color: #fff;
-    font-weight: 600;
-  }
-
-  a {
-    color: #f7bb00;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  br {
-    display: block;
-    content: "";
-    margin: 10px 0;
-  }
+export const ArticleFooter = styled.footer`
+  margin-top: 56px;
+  padding-top: 24px;
+  border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;

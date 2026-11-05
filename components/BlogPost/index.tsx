@@ -1,106 +1,66 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
-import { motion } from "framer-motion";
-import { Post } from "../../data/posts";
+import React, { useRef } from "react";
+import { FiArrowLeft } from "react-icons/fi";
+import type { Post } from "../../data/posts";
+import { useLanguage } from "../../i18n/LanguageContext";
+import { Container, Reveal } from "../ui";
+import { formatPostDate } from "../Blog/formatDate";
+import { Markdown } from "./Markdown";
+import { ReadingProgress } from "./ReadingProgress";
 import {
-  Container,
-  Content,
+  Page,
+  Article,
   BackLink,
   PostHeader,
-  PostMeta,
-  PostContent,
+  Title,
+  Meta,
+  LangNote,
+  ArticleFooter,
 } from "./styles";
 
 interface BlogPostProps {
   post: Post;
 }
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-};
-
 export const BlogPost: React.FC<BlogPostProps> = ({ post }) => {
+  const { t, lang } = useLanguage();
+  const articleRef = useRef<HTMLElement>(null);
+  const date = formatPostDate(post.date, lang);
+  const uiLang = lang === "pt" ? "pt-BR" : "en";
+
   return (
-    <Container>
-      <Content
-        as={motion.article}
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <BackLink
-          as={motion.div}
-          variants={itemVariants}
-          whileHover={{ x: -5 }}
-        >
-          <Link href="/blog">← Voltar para o Blog</Link>
-        </BackLink>
+    <Page>
+      <ReadingProgress target={articleRef} />
+      <Container>
+        <Article ref={articleRef} lang="pt-BR">
+          <BackLink href="/blog" lang={uiLang}>
+            <FiArrowLeft aria-hidden="true" focusable="false" /> {t.blog.back}
+          </BackLink>
 
-        <PostHeader as={motion.div} variants={itemVariants}>
-          <h1>{post.title}</h1>
-          <PostMeta>
-            <span>{post.date}</span>
-            <span>•</span>
-            <span>{post.readTime} de leitura</span>
-          </PostMeta>
-        </PostHeader>
+          <Reveal>
+            <PostHeader>
+              <Title>{post.title}</Title>
+              <Meta lang={uiLang}>
+                <time dateTime={date.iso}>{date.label}</time>
+                <span aria-hidden="true">·</span>
+                <span>
+                  {post.readTime} {t.blog.readTime}
+                </span>
+              </Meta>
+              {lang === "en" && <LangNote lang="en">{t.blog.contentLangNote}</LangNote>}
+            </PostHeader>
+          </Reveal>
 
-        <PostContent
-          as={motion.div}
-          variants={itemVariants}
-          dangerouslySetInnerHTML={{ __html: formatContent(post.content) }}
-        />
-      </Content>
-    </Container>
+          <Markdown source={post.content} title={post.title} />
+
+          <ArticleFooter>
+            <BackLink href="/blog" lang={uiLang}>
+              <FiArrowLeft aria-hidden="true" focusable="false" /> {t.blog.back}
+            </BackLink>
+          </ArticleFooter>
+        </Article>
+      </Container>
+    </Page>
   );
 };
-
-function formatContent(content: string): string {
-  return content
-    .trim()
-    .split("\n")
-    .map((line) => {
-      if (line.startsWith("# ")) {
-        return `<h1>${line.slice(2)}</h1>`;
-      }
-      if (line.startsWith("## ")) {
-        return `<h2>${line.slice(3)}</h2>`;
-      }
-      if (line.startsWith("### ")) {
-        return `<h3>${line.slice(4)}</h3>`;
-      }
-      if (line.startsWith("```")) {
-        return line === "```" ? "</pre></code>" : "<code><pre>";
-      }
-      if (line.startsWith("- ")) {
-        return `<li>${line.slice(2)}</li>`;
-      }
-      line = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
-      line = line.replace(/`([^`]+)`/g, "<code class='inline'>$1</code>");
-      if (line.trim() === "") {
-        return "<br/>";
-      }
-      if (!line.startsWith("<")) {
-        return `<p>${line}</p>`;
-      }
-      return line;
-    })
-    .join("\n");
-}

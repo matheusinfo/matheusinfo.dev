@@ -1,81 +1,103 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-import { Logo } from "./Logo";
-import { List } from "./List";
-import { Hyperlink } from "./Hyperlink";
-import { Container, FooterContent, FooterGrid, Copyright, SocialLinks } from "./styles";
-import { FaLinkedin, FaGithub, FaCode, FaEnvelope, FaWhatsapp, FaFileDownload } from "react-icons/fa";
+import type { IconType } from "react-icons";
+import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
+import { useLanguage, type Localized } from "../../i18n/LanguageContext";
+import { profile } from "../../data/profile";
+import { Container } from "../ui";
+import { Root, Inner, Credits, Line, InlineLink, Socials, IconLink } from "./styles";
 
-export const Footer: React.FC = () => (
-  <Container
-    as={motion.footer}
-    initial={{ opacity: 0 }}
-    whileInView={{ opacity: 1 }}
-    viewport={{ once: true }}
-    transition={{ duration: 0.6 }}
-  >
-    <FooterContent>
-      <FooterGrid>
-        <Logo />
+interface SocialLink {
+  href: string;
+  label: Localized;
+  icon: IconType;
+  external: boolean;
+}
 
-        <List title="Redes Sociais">
-          <SocialLinks>
-            <motion.a
-              href="https://www.linkedin.com/in/matheusinfo/"
-              target="_blank"
-              rel="noreferrer"
-              whileHover={{ scale: 1.2, y: -3 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <FaLinkedin size={24} />
-            </motion.a>
-            <motion.a
-              href="https://github.com/matheusinfo"
-              target="_blank"
-              rel="noreferrer"
-              whileHover={{ scale: 1.2, y: -3 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <FaGithub size={24} />
-            </motion.a>
-            <motion.a
-              href="https://leetcode.com/MaPx/"
-              target="_blank"
-              rel="noreferrer"
-              whileHover={{ scale: 1.2, y: -3 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              <FaCode size={24} />
-            </motion.a>
-          </SocialLinks>
-        </List>
+const SOCIALS: SocialLink[] = [
+  { href: profile.socials.github, label: { pt: "GitHub", en: "GitHub" }, icon: FiGithub, external: true },
+  { href: profile.socials.linkedin, label: { pt: "LinkedIn", en: "LinkedIn" }, icon: FiLinkedin, external: true },
+  {
+    href: `mailto:${profile.email}`,
+    label: { pt: `Enviar e-mail para ${profile.email}`, en: `Send an e-mail to ${profile.email}` },
+    icon: FiMail,
+    external: false,
+  },
+];
 
-        <List title="Contato">
-          <Hyperlink
-            name="E-mail"
-            path="https://mail.google.com/mail/?view=cm&fs=1&to=matheus.add12@gmail.com"
-            icon={<FaEnvelope />}
-          />
-          <Hyperlink
-            name="WhatsApp"
-            path="https://web.whatsapp.com/send?phone=5544999555595&text=Olá, vim do seu portifólio. Podemos conversar?"
-            icon={<FaWhatsapp />}
-          />
-          <Hyperlink
-            name="Currículo (PT)"
-            path="/curriculum/curriculum.pdf"
-            icon={<FaFileDownload />}
-          />
-          <Hyperlink
-            name="Resume (EN)"
-            path="/curriculum/curriculum_en.pdf"
-            icon={<FaFileDownload />}
-          />
-        </List>
-      </FooterGrid>
-    </FooterContent>
-    <Copyright>© 2026 Matheus Andrade. Todos os direitos reservados.</Copyright>
-  </Container>
-);
+/** Words in `t.footer.built` that become links (same spelling in both languages). */
+const TECH_LINKS: Record<string, string> = {
+  "Next.js": "https://nextjs.org",
+  "styled-components": "https://styled-components.com",
+};
+const TECH_PATTERN = new RegExp(`(${Object.keys(TECH_LINKS).map((k) => k.replace(/[.]/g, "\\.")).join("|")})`);
+
+const linkifyTech = (text: string): React.ReactNode[] =>
+  text.split(TECH_PATTERN).map((part, i) =>
+    TECH_LINKS[part] ? (
+      <InlineLink key={i} href={TECH_LINKS[part]} target="_blank" rel="noopener noreferrer">
+        {part}
+      </InlineLink>
+    ) : (
+      <React.Fragment key={i}>{part}</React.Fragment>
+    )
+  );
+
+const creditPrefix: Localized = { pt: "Projetado e desenvolvido por", en: "Designed & built by" };
+const socialNavLabel: Localized = { pt: "Redes sociais", en: "Social links" };
+
+const YEAR = new Date().getFullYear();
+
+interface FooterProps {
+  /** "page": full-width bar on inner pages. "column": end of the home page's right column. */
+  variant?: "page" | "column";
+}
+
+export const Footer: React.FC<FooterProps> = ({ variant = "page" }) => {
+  const { t, l } = useLanguage();
+  const isPage = variant === "page";
+
+  const credits = (
+    <Credits>
+      <Line>
+        {l(creditPrefix)}{" "}
+        <InlineLink href={profile.socials.linkedin} target="_blank" rel="noopener noreferrer">
+          {profile.name}
+        </InlineLink>
+        .
+      </Line>
+      <Line>
+        {linkifyTech(t.footer.built)} © {YEAR}
+      </Line>
+    </Credits>
+  );
+
+  if (!isPage) return <Root $variant="column">{credits}</Root>;
+
+  return (
+    <Root $variant="page">
+      <Container>
+        <Inner>
+          {credits}
+          <nav aria-label={l(socialNavLabel)}>
+            <Socials>
+              {SOCIALS.map(({ href, label, icon: Icon, external }) => (
+                <li key={href}>
+                  <IconLink
+                    href={href}
+                    aria-label={l(label)}
+                    title={l(label)}
+                    {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                  >
+                    <Icon aria-hidden="true" focusable="false" />
+                  </IconLink>
+                </li>
+              ))}
+            </Socials>
+          </nav>
+        </Inner>
+      </Container>
+    </Root>
+  );
+};

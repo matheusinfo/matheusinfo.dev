@@ -1,89 +1,134 @@
 import styled from "styled-components";
+import Link from "next/link";
+import { media } from "../../styles/theme";
+import { HoverCard } from "../ui";
 
-export const Container = styled.div`
-  position: relative;
-  z-index: 1;
-  padding: 60px 20px 100px;
-  min-height: calc(100vh - 80px);
-`;
+export const Page = styled.div`
+  padding: 48px 0 80px;
+  min-height: 70vh;
 
-export const Content = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-width: 800px;
-  margin: 0 auto;
-`;
-
-export const SectionTitle = styled.h1`
-  font-size: clamp(32px, 5vw, 48px);
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  margin-bottom: 20px;
-  background: linear-gradient(135deg, #f7bb00 0%, #ffd54f 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-`;
-
-export const PostList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  width: 100%;
-`;
-
-export const PostCard = styled.div`
-  display: block;
-  background: linear-gradient(
-    135deg,
-    rgba(59, 59, 59, 0.6) 0%,
-    rgba(40, 40, 40, 0.8) 100%
-  );
-  border-radius: 16px;
-  border: 1px solid rgba(247, 187, 0, 0.15);
-  cursor: pointer;
-  transition: all 0.3s ease;
-
-  a {
-    display: block;
-    padding: 30px;
-    text-decoration: none;
-  }
-
-  h2 {
-    color: #fff;
-    font-size: clamp(18px, 3vw, 22px);
-    margin: 0 0 15px 0;
-    line-height: 1.4;
-    transition: color 0.3s ease;
-  }
-
-  p {
-    color: #a0a0a0;
-    font-size: 16px;
-    line-height: 1.6;
-    margin: 0 0 20px 0;
-  }
-
-  &:hover {
-    border-color: rgba(247, 187, 0, 0.5);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-
-    h2 {
-      color: #f7bb00;
-    }
+  ${media.md} {
+    padding: 96px 0 120px;
   }
 `;
 
-export const PostMeta = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  color: #666;
+export const PageHeader = styled.header`
+  max-width: 40rem;
+  margin-bottom: 48px;
 
-  span:nth-child(2) {
-    color: #f7bb00;
+  ${media.md} {
+    margin-bottom: 72px;
   }
+`;
+
+export const Title = styled.h1`
+  font-size: clamp(2.25rem, 7vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: ${({ theme }) => theme.colors.text};
+  margin-bottom: 16px;
+`;
+
+export const Description = styled.p`
+  font-size: 1.05rem;
+  color: ${({ theme }) => theme.colors.muted};
+
+  ${media.md} {
+    font-size: 1.125rem;
+  }
+`;
+
+export const LangNote = styled.p`
+  margin-top: 12px;
+  font-size: 0.875rem;
+  color: ${({ theme }) => theme.colors.subtle};
+`;
+
+/** Date left / content right on sm+. */
+export const Row = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+
+  ${media.sm} {
+    grid-template-columns: 8rem 1fr;
+    gap: 24px;
+  }
+`;
+
+export const DateCol = styled.div`
+  ${media.sm} {
+    padding-top: 4px;
+  }
+`;
+
+export const Body = styled.div`
+  min-width: 0;
+`;
+
+export const PostTitle = styled.h2`
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  color: ${({ theme }) => theme.colors.text};
+  transition: color ${({ theme }) => theme.transition};
+  text-wrap: pretty;
+
+  ${HoverCard}:hover &,
+  ${HoverCard}:focus-within & {
+    color: ${({ theme }) => theme.colors.accent};
+  }
+
+  ${media.md} {
+    font-size: 1.2rem;
+  }
+`;
+
+/** Stretched link: the whole card is clickable. */
+export const PostLink = styled(Link)`
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: ${({ theme }) => theme.radii.lg};
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible::before {
+    outline: 2px solid ${({ theme }) => theme.colors.accent};
+    outline-offset: 4px;
+  }
+`;
+
+export const Arrow = styled.span`
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 0.9em;
+  vertical-align: -0.1em;
+  transition: transform ${({ theme }) => theme.transition};
+
+  ${HoverCard}:hover &,
+  ${HoverCard}:focus-within & {
+    transform: translate(2px, -2px);
+  }
+`;
+
+export const Resume = styled.p`
+  margin-top: 8px;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: ${({ theme }) => theme.colors.muted};
+  max-width: 62ch;
+`;
+
+export const ReadTime = styled.p`
+  margin-top: 12px;
+  font-size: 0.8rem;
+  color: ${({ theme }) => theme.colors.subtle};
 `;

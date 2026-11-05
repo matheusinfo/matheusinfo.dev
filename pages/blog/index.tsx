@@ -1,17 +1,17 @@
 import Head from "next/head";
-import { Blog } from "../../components/Blog/index";
+import { Blog } from "../../components/Blog";
 
 export default function BlogPage() {
   return (
-    <div>
+    <>
       <Head>
         <title>Blog | Matheus Andrade</title>
         <meta
           name="description"
-          content="Blog sobre desenvolvimento de software, tecnologia e programação."
+          content="Artigos sobre desenvolvimento de software, arquitetura e tecnologia, por Matheus Andrade."
         />
       </Head>
       <Blog />
-    </div>
+    </>
   );
 }
